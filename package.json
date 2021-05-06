@@ -1,0 +1,24 @@
+{
+  "name": "nuxtjs-firebase",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Qytela",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/firebase": "^7.5.0",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "cookie-universal-nuxt": "^2.1.4",
+    "core-js": "^3.9.1",
+    "firebase": "^8.5.0",
+    "nuxt": "^2.15.3",
+    "secure-ls": "^1.2.6",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {}
+}
