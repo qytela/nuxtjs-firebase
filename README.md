@@ -1,4 +1,4 @@
-# vue-argon
+# NuxtJS Firebase Example
 
 ## Build Setup
 
