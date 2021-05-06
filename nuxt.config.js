@@ -1,3 +1,5 @@
+import firebaseConfig from "./config/firebase"
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -64,9 +66,7 @@ export default {
   },
 
   firebase: {
-    config: {
-      // firebase config
-    },
+    config: firebaseConfig,
     services: {
       auth: true,
       firestore: true,
