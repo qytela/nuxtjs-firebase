@@ -15,13 +15,32 @@
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>
+      <div class="mt-3">
+        <div>
+          Posts Data
+          <code>{{ postsData }}</code>
+          <b-spinner variant="primary" type="grow" label="Spinning" v-if="postsIsLoading"></b-spinner>
+        </div>
+        <hr />
+        <div>
+          Users Data
+          <code>{{ usersData }}</code>
+          <b-spinner variant="primary" type="grow" label="Spinning" v-if="usersIsLoading"></b-spinner>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axiosMixin from "../mixins/axiosMixin"
+
 export default {
   middleware: "authenticated",
+  mixins: [
+    axiosMixin("posts", "https://jsonplaceholder.typicode.com/posts"),
+    axiosMixin("users", "https://jsonplaceholder.typicode.com/posts")
+  ],
   name: "Dashboard",
   data() {
     return {
@@ -29,6 +48,9 @@ export default {
         name: null
       }
     }
+  },
+  created() {
+    this.postsShow(1)
   },
   mounted() {
     this.$store.commit("page/setPageName", "#")
@@ -38,6 +60,13 @@ export default {
       this.setLoading(true)
       this.$store.dispatch("users/changeName", { ...this.form, ...this.$bvToast})
       this.setLoading(false)
+
+      console.time()
+      this.usersShow(10)
+        .then(response => {
+          console.log("Users Show", response)
+          console.timeEnd()
+        })
     },
     setLoading(loading) {
       this.$nextTick(() => {

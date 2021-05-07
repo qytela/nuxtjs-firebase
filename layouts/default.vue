@@ -10,7 +10,8 @@
       <app-breadcrumb />
       <!-- Page content -->
       <div class="container-fluid mt--6">
-        <nuxt />
+        <!-- Keeps only 10 page components in memory. -->
+        <nuxt keep-alive :keep-alive-props="{ max: 10 }" />
         <!-- Footer -->
         <footer class="footer pt-0">
           <div class="row align-items-center justify-content-lg-between">
