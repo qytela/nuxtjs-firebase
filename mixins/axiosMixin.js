@@ -1,10 +1,10 @@
 export default (namespace, endpoint) => ({
   data: () => ({
     [`${namespace}IsLoading`]: false,
-    [`${namespace}Data`]: null,
+    [`${namespace}Data`]: null
   }),
   methods: {
-    [`${namespace}Read`]: function () {
+    [`${namespace}Read`]() {
       return new Promise((resolve, reject) => {
         this[`${namespace}IsLoading`] = true
         this.$axios
@@ -20,7 +20,7 @@ export default (namespace, endpoint) => ({
           .finally(() => this[`${namespace}IsLoading`] = false)
       })
     },
-    [`${namespace}Show`]: function (id) {
+    [`${namespace}Show`](id) {
       return new Promise((resolve, reject) => {
         this[`${namespace}IsLoading`] = true
         this.$axios

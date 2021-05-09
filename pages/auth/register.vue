@@ -61,15 +61,13 @@
 export default {
   layout: "auth",
   name: "Register",
-  data() {
-    return {
-      form: {
-        name: null,
-        email: null,
-        password: null
-      }
+  data: () => ({
+    form: {
+      name: null,
+      email: null,
+      password: null
     }
-  },
+  }),
   methods: {
     onSubmit() {
       this.setLoading(true)
@@ -78,9 +76,7 @@ export default {
     },
     setLoading(loading) {
       this.$nextTick(() => {
-        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => {
-          this.$nuxt.$loading.finish()
-        }, 500);
+        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => this.$nuxt.$loading.finish(), 500);
       })
     }
   }

@@ -19,6 +19,14 @@ export const actions = {
       commit("setAuthId", user.uid)
       commit("setUserProfile", usersRef.data())
 
+      if (ctx.isRemember) {
+        this.$cookies.set("REMEMBER_ME", true)
+        this.$cookies.set("FORM", { email: ctx.email, password: ctx.password })
+      } else {
+        this.$cookies.remove("REMEMBER_ME")
+        this.$cookies.remove("FORM")
+      }
+
       this.$cookies.set("TOKEN", "BearerTokenHere")
       this.$router.push("/")
     } catch (error) {

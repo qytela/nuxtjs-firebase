@@ -51,6 +51,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/firebase',
     '@nuxtjs/axios',
+    '@nuxtjs/apollo',
     'cookie-universal-nuxt',
   ],
 
@@ -72,6 +73,14 @@ export default {
     services: {
       auth: true,
       firestore: true,
+    }
+  },
+
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'https://api.graphqlplaceholder.com',
+      }
     }
   }
 }

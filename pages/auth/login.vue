@@ -36,8 +36,8 @@
             </div>
           </div>
           <div class="custom-control custom-control-alternative custom-checkbox">
-            <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-            <label class="custom-control-label" for=" customCheckLogin">
+            <input class="custom-control-input" id="customCheckLogin" type="checkbox" v-model="form.isRemember">
+            <label class="custom-control-label" for="customCheckLogin">
               <span class="text-muted">Remember me</span>
             </label>
           </div>
@@ -62,13 +62,18 @@
 export default {
   layout: "auth",
   name: "Login",
-  data() {
-    return {
-      form: {
-        email: null,
-        password: null
-      }
+  data: () => ({
+    form: {
+      email: null,
+      password: null,
+      isRemember: false
     }
+  }),
+  created() {
+    const formCookies = this.$cookies.get("FORM") || {}
+    this.form.email = formCookies.email
+    this.form.password = formCookies.password
+    this.form.isRemember = this.$cookies.get("REMEMBER_ME")
   },
   methods: {
     onSubmit() {
@@ -78,9 +83,7 @@ export default {
     },
     setLoading(loading) {
       this.$nextTick(() => {
-        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => {
-          this.$nuxt.$loading.finish()
-        }, 500);
+        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => this.$nuxt.$loading.finish(), 500);
       })
     }
   }

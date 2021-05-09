@@ -1,6 +1,5 @@
 import createPersistedState from "vuex-persistedstate"
 
-
 export default ({ store }) => {
   let persistedOptions = {}
 

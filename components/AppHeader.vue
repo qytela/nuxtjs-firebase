@@ -236,11 +236,13 @@
 </template>
 
 <script>
+import bannedMixin from "../mixins/bannedMixin"
+
 export default {
-  created() {
-    if (this.$store.state.users.userProfile.isBanned) return this.$router.push("/banned")
-  },
+  mixins: [bannedMixin],
   mounted() {
+    if (this.isBanned) return this.$router.push("/banned")
+
     this.$fire.firestore.collection("users").doc(this.$store.state.users.authId).onSnapshot(doc => {
       this.$store.commit("users/setUserProfile", doc.data())
       if (doc.data().isBanned) return this.$router.push("/banned")
