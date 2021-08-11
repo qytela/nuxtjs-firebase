@@ -1,0 +1,25 @@
+<template>
+  <div class="card-header bg-transparent pb-5">
+    <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+    <div class="btn-wrapper text-center">
+      <a href="#" class="btn btn-neutral btn-icon">
+        <span class="btn-inner--icon"><img src="~assets/img/icons/common/github.svg"></span>
+        <span class="btn-inner--text">Github</span>
+      </a>
+      <a href="javascript:void(0)" class="btn btn-neutral btn-icon" @click="googleLogin">
+        <span class="btn-inner--icon"><img src="~assets/img/icons/common/google.svg"></span>
+        <span class="btn-inner--text">Google</span>
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    googleLogin() {
+      this.$store.dispatch("users/googleLogin", this.$bvToast)
+    }
+  }
+}
+</script>

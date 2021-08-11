@@ -195,7 +195,7 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="~assets/img/theme/team-4.jpg">
+                  <img alt="Image placeholder" :src="photoUrl">
                 </span>
                 <div class="media-body  ml-2  d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold">{{ $store.state.users.userProfile.name }}</span>
@@ -236,19 +236,38 @@
 </template>
 
 <script>
-import bannedMixin from "../mixins/bannedMixin"
+import bannedMixin from "~/mixins/bannedMixin"
 
 export default {
   mixins: [bannedMixin],
+  data: () => ({
+    photoUrl: require("../assets/img/theme/team-4.jpg")
+  }),
   mounted() {
     if (this.isBanned) return this.$router.push("/banned")
 
-    this.$fire.firestore.collection("users").doc(this.$store.state.users.authId).onSnapshot(doc => {
-      this.$store.commit("users/setUserProfile", doc.data())
-      if (doc.data().isBanned) return this.$router.push("/banned")
-    })
+    this.updatePhotoUrl()
+
+    this.$fire.firestore
+      .collection("users")
+      .doc(this.$store.state.users.authId)
+      .onSnapshot(doc => {
+        const { isBanned } = doc.data()
+
+        this.$store.commit("users/setUserProfile", doc.data())
+        this.updatePhotoUrl()
+        if (isBanned) return this.$router.push("/banned")
+      })
   },
   methods: {
+    updatePhotoUrl() {
+      const photoUrl = this.$store.state.users.userProfile.photoUrl
+      this.photoUrl = (
+        photoUrl
+        && photoUrl != null
+        && photoUrl != "null"
+      ) ? photoUrl : require("../assets/img/theme/team-4.jpg")
+    },
     logout() {
       this.$store.dispatch("users/logout", this.$bvToast)
     }

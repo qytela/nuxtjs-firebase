@@ -1,3 +1,3 @@
-export default function({ app, store, redirect }) {
+export default function({ app, redirect }) {
   if (!app.$cookies.get("TOKEN")) return redirect("/auth/login")
 }

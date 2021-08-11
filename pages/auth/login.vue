@@ -1,19 +1,7 @@
 <template>
   <div>
     <div class="card bg-secondary border-0 mb-0">
-      <div class="card-header bg-transparent pb-5">
-        <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
-        <div class="btn-wrapper text-center">
-          <a href="#" class="btn btn-neutral btn-icon">
-            <span class="btn-inner--icon"><img src="~assets/img/icons/common/github.svg"></span>
-            <span class="btn-inner--text">Github</span>
-          </a>
-          <a href="#" class="btn btn-neutral btn-icon">
-            <span class="btn-inner--icon"><img src="~assets/img/icons/common/google.svg"></span>
-            <span class="btn-inner--text">Google</span>
-          </a>
-        </div>
-      </div>
+      <signin-with />
       <div class="card-body px-lg-5 py-lg-5">
         <div class="text-center text-muted mb-4">
           <small>Or sign in with credentials</small>
@@ -59,8 +47,11 @@
 </template>
 
 <script>
+import loadingMixin from "~/mixins/loadingMixin"
+
 export default {
   layout: "auth",
+  mixins: [loadingMixin],
   name: "Login",
   data: () => ({
     form: {
@@ -80,11 +71,6 @@ export default {
       this.setLoading(true)
       this.$store.dispatch("users/login", { ...this.form, ...this.$bvToast })
       this.setLoading(false)
-    },
-    setLoading(loading) {
-      this.$nextTick(() => {
-        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => this.$nuxt.$loading.finish(), 500);
-      })
     }
   }
 }

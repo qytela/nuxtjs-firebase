@@ -59,23 +59,21 @@ export default {
   build: {
   },
 
+  // Indicator top position
   loading: {
     color: 'cyan'
   },
 
+  // Router
   router: {
     base: '/',
     linkActiveClass: 'active'
   },
 
-  firebase: {
-    config: firebaseConfig,
-    services: {
-      auth: true,
-      firestore: true,
-    }
-  },
+  // Firebase
+  firebase: firebaseConfig,
 
+  // Apollo GraphQL
   apollo: {
     clientConfigs: {
       default: {

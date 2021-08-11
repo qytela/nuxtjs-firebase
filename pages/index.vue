@@ -45,14 +45,16 @@
 </template>
 
 <script>
-import axiosMixin from "../mixins/axiosMixin"
-import { getUser, getUsers } from "../gql/users"
+import axiosMixin from "~/mixins/axiosMixin"
+import loadingMixin from "~/mixins/loadingMixin"
+import { getUser, getUsers } from "~/gql/users"
 
 export default {
   middleware: "authenticated",
   mixins: [
     axiosMixin("posts", "https://jsonplaceholder.typicode.com/posts"),
-    axiosMixin("users", "https://jsonplaceholder.typicode.com/posts")
+    axiosMixin("users", "https://jsonplaceholder.typicode.com/posts"),
+    loadingMixin
   ],
   name: "Dashboard",
   data: () => ({
@@ -86,11 +88,6 @@ export default {
 
       this.$apollo.queries.users.skip = false
       this.$apollo.queries.user.refetch({ id: 10 })
-    },
-    setLoading(loading) {
-      this.$nextTick(() => {
-        (loading) ? this.$nuxt.$loading.start() : setTimeout(() => this.$nuxt.$loading.finish(), 500);
-      })
     }
   }
 }

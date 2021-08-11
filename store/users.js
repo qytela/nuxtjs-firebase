@@ -33,18 +33,31 @@ export const actions = {
       Toast(ctx, error)
     }
   },
+  async googleLogin({ commit }, ctx) {
+    try {
+      const provider = new this.$fireModule.auth.GoogleAuthProvider()
+      const { user } = await this.$fireModule.auth().signInWithPopup(provider)
+      const usersRef = await this.$fire.firestore.collection("users").doc(user.uid).get()
+      const data = { name: user.displayName, photoUrl: user.photoURL, isBanned: false }
+
+      if (usersRef.exists) {
+        commit("setAuthId", user.uid)
+        commit("setUserProfile", usersRef.data())
+        this.$cookies.set("TOKEN", "BearerTokenHere")
+        this.$router.push("/")
+      } else {
+        createUser(this.$fire, this.$cookies, this.$router, { commit, uid: user.uid, data })
+      }
+    } catch (error) {
+      Toast(ctx, error)
+    }
+  },
   async register({ commit }, ctx) {
     try {
       const { user } = await this.$fire.auth.createUserWithEmailAndPassword(ctx.email, ctx.password)
-      const usersRef = await this.$fire.firestore.collection("users").doc(user.uid)
-      const data = { name: ctx.name, isBanned: false }
-      
-      await usersRef.set(data)
-      commit("setAuthId", user.uid)
-      commit("setUserProfile", data)
+      const data = { name: ctx.name, photoUrl: null, isBanned: false }
 
-      this.$cookies.set("TOKEN", "BearerTokenHere")
-      this.$router.push("/")
+      createUser(this.$fire, this.$cookies, this.$router, { commit, uid: user.uid, data })
     } catch (error) {
       Toast(ctx, error)
     }
@@ -83,4 +96,15 @@ export const mutations = {
   setUserProfile(state, payload) {
     state.userProfile = payload
   }
+}
+
+const createUser = async (fire, cookies, router, { commit, uid, data }) => {
+  const usersRef = await fire.firestore.collection("users").doc(uid)
+
+  await usersRef.set(data)
+  commit("setAuthId", uid)
+  commit("setUserProfile", data)
+
+  cookies.set("TOKEN", "BearerTokenHere")
+  router.push("/")
 }

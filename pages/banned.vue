@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import bannedMixin from "../mixins/bannedMixin"
+import bannedMixin from "~/mixins/bannedMixin"
 
 export default {
   layout: "blank",

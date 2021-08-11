@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- Sidenav -->
-    <app-sidebar />
+    <lazy-app-sidebar />
     <!-- Main content -->
     <div class="main-content" id="panel">
       <!-- Topnav -->
-      <app-header />
+      <lazy-app-header />
       <!-- Header -->
-      <app-breadcrumb />
+      <lazy-app-breadcrumb />
       <!-- Page content -->
       <div class="container-fluid mt--6">
         <!-- Keeps only 10 page components in memory. -->
