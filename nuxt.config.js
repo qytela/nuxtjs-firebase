@@ -15,14 +15,14 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://demos.creative-tim.com/argon-dashboard/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://demos.creative-tim.com/argon-dashboard/assets-old/vendor/@fortawesome/fontawesome-free/css/all.min.css' },
     ],
     script: [
-      { src: 'vendor/jquery/dist/jquery.min.js', body: true },
-      { src: 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js', body: true },
-      { src: 'vendor/js-cookie/js.cookie.js', body: true },
-      { src: 'vendor/jquery.scrollbar/jquery.scrollbar.min.js', body: true },
-      { src: 'vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js', body: true },
+      { src: '/js/vendor/jquery/dist/jquery.min.js', body: true },
+      { src: '/js/vendor/bootstrap/dist/js/bootstrap.bundle.min.js', body: true },
+      { src: '/js/vendor/js-cookie/js.cookie.js', body: true },
+      { src: '/js/vendor/jquery.scrollbar/jquery.scrollbar.min.js', body: true },
+      { src: '/js/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js', body: true },
     ]
   },
 
@@ -80,5 +80,9 @@ export default {
         httpEndpoint: 'https://api.graphqlplaceholder.com',
       }
     }
+  },
+
+  server: {
+    port: 4551
   }
 }
